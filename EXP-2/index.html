@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Banking Interface</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.deposit { background: #2563eb; }
+.withdraw { background: #dc2626; }
+
+#message {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .container { width: 90%; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="balance">Balance: $1000</h1>
+
+    <label>Amount</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <div class="buttons">
+        <button class="deposit" onclick="deposit()">Deposit</button>
+        <button class="withdraw" onclick="withdraw()">Withdraw</button>
+    </div>
+
+    <p id="message"></p>
+</div>
+
+<script>
+let balance = 1000;
+
+function updateBalance() {
+    document.getElementById("balance").innerText = "Balance: $" + balance;
+}
+
+function deposit() {
+    let amt = Number(document.getElementById("amount").value);
+    let msg = document.getElementById("message");
+
+    if (amt <= 0) {
+        msg.innerText = "Invalid amount!";
+        msg.style.color = "red";
+        return;
+    }
+
+    balance += amt;
+    updateBalance();
+    msg.innerText = "Amount deposited successfully!";
+    msg.style.color = "green";
+}
+
+function withdraw() {
+    let amt = Number(document.getElementById("amount").value);
+    let msg = document.getElementById("message");
+
+    if (amt <= 0) {
+        msg.innerText = "Invalid amount!";
+        msg.style.color = "red";
+        return;
+    }
+
+    if (amt > balance) {
+        msg.innerText = "Insufficient balance!";
+        msg.style.color = "red";
+        return;
+    }
+
+    balance -= amt;
+    updateBalance();
+    msg.innerText = "Amount withdrawn successfully!";
+    msg.style.color = "green";
+}
+</script>
+
+</body>
+</html>
